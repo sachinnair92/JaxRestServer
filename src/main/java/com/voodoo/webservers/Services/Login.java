@@ -40,14 +40,37 @@ public class Login {
             Document doc = new Document("user_name", User_Name)
                     .append("password", Password)
                     .append("hospital_name", Hospital_name)
-                    .append("type_of_user", Type_of_User);
+                    .append("type_of_user", Type_of_User)
+                    .append("ambulance_id", "null");
             collection.insertOne(doc);
             obj.put("message", "true");
             return String.valueOf(obj);
         }
         catch(Exception e)
         {
-            obj.put("message", "falsem");
+            obj.put("message", "false");
+            return String.valueOf(obj);
+        }
+    }
+
+    @GET
+    @Path("/register_ambulance")
+    @Produces("application/json")
+    public String register_ambulance(@QueryParam("User_Name") String User_Name,@QueryParam("Password") String Password,@QueryParam("Hospital_name") String Hospital_name,@QueryParam("Type_of_User")String Type_of_User,@QueryParam("ambulance_id")String ambulance_id) {
+        obj = new JSONObject();
+        try {
+            Document doc = new Document("user_name", User_Name)
+                    .append("password", Password)
+                    .append("hospital_name", Hospital_name)
+                    .append("type_of_user", Type_of_User)
+                    .append("ambulance_id", ambulance_id);
+            collection.insertOne(doc);
+            obj.put("message", "true");
+            return String.valueOf(obj);
+        }
+        catch(Exception e)
+        {
+            obj.put("message", "false");
             return String.valueOf(obj);
         }
     }
