@@ -43,14 +43,16 @@ public class Patient {
     public String add_new_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
         obj = new JSONObject();
         try {
+            String p_id="Patient_"+String.valueOf(gen());
             if(p_name==null)
             {
-                p_name="Patient_"+String.valueOf(gen());
+                p_name=p_id;
             }
 
             Document doc = new Document("hospital_name", hospital_name)
                     .append("ambulance_id", ambulance_id)
                     .append("p_name", p_name)
+                    .append("p_id", p_id)
                     .append("gender", gender)
                     .append("blood_grp", blood_grp)
                     .append("condition", condition)
@@ -59,6 +61,7 @@ public class Patient {
                     .append("is_enabled", is_enabled);
 
             collection.insertOne(doc);
+            obj.put("p_id", "p_id");
             obj.put("message", "true");
             return String.valueOf(obj);
         }
@@ -72,12 +75,12 @@ public class Patient {
     @GET
     @Path("/update_patient")
     @Produces("application/json")
-    public String update_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
+    public String update_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("p_name") String p_id,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
 
         obj = new JSONObject();
         try {
 
-            UpdateResult ur = collection.updateOne(new Document("p_name", p_name).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new Document("$set", new Document("hospital_name", hospital_name).append("ambulance_id", ambulance_id).append("p_name",p_name).append("gender",gender).append("blood_grp",blood_grp).append("condition",condition).append("problem",problem).append("police_case",police_case).append("is_enabled",is_enabled)));
+            UpdateResult ur = collection.updateOne(new Document("p_id", p_id).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new Document("$set", new Document("hospital_name", hospital_name).append("ambulance_id", ambulance_id).append("p_name",p_name).append("gender",gender).append("blood_grp",blood_grp).append("condition",condition).append("problem",problem).append("police_case",police_case).append("is_enabled",is_enabled)));
 
 
             if (ur.getModifiedCount() != 0) {
@@ -98,12 +101,12 @@ public class Patient {
     @GET
     @Path("/get_patient_details")
     @Produces("application/json")
-    public String get_patient_details(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name) {
+    public String get_patient_details(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_id") String p_id) {
 
         obj = new JSONObject();
         try {
 
-            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_name",p_name));
+            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_id",p_id));
 
             obj = new JSONObject();
             patientfound = false;
@@ -114,6 +117,7 @@ public class Patient {
                     obj.put("hospital_name", document.get("hospital_name"));
                     obj.put("ambulance_id", document.get("ambulance_id"));
                     obj.put("p_name", document.get("p_name"));
+                    obj.put("p_id", document.get("p_id"));
                     obj.put("gender", document.get("gender"));
                     obj.put("blood_grp", document.get("blood_grp"));
                     obj.put("condition", document.get("condition"));

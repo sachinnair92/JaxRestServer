@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.voodoo.webservers.MyResourceTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.676 sec - in com.voodoo.webservers.MyResourceTest

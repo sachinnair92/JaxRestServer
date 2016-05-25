@@ -35,13 +35,13 @@ public class MiBand {
     @GET
     @Path("/update_heartrate")
     @Produces("application/json")
-    public String update_heartrate(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("heartrate") String heartrate) {
+    public String update_heartrate(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_id") String p_id,@QueryParam("heartrate") String heartrate) {
 
         obj = new JSONObject();
         try {
 
 
-            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_name",p_name));
+            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_name",p_id));
 
             datafound=false;
             iterable.forEach(new Block<Document>() {
@@ -54,7 +54,7 @@ public class MiBand {
 
             if(datafound==true)
             {
-                UpdateResult ur = collection.updateOne(new Document("p_name", p_name).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new Document("$set", new Document("heartrate", heartrate)));
+                UpdateResult ur = collection.updateOne(new Document("p_id", p_id).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new Document("$set", new Document("heartrate", heartrate)));
                 if (ur.getModifiedCount() != 0) {
                     obj.put("message", "true");
                     return String.valueOf(obj);
@@ -63,7 +63,7 @@ public class MiBand {
                 return String.valueOf(obj);
             }else
             {
-                Document doc = new Document("p_name", p_name)
+                Document doc = new Document("p_id", p_id)
                         .append("hospital_name", hospital_name)
                         .append("ambulance_id", ambulance_id)
                         .append("heartrate",heartrate);
@@ -85,11 +85,11 @@ public class MiBand {
     @GET
     @Path("/get_heartrate")
     @Produces("application/json")
-    public String get_heartrate(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name) {
+    public String get_heartrate(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_id") String p_id) {
 
         obj = new JSONObject();
         try {
-            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_name",p_name));
+            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_id",p_id));
 
             datafound=false;
             iterable.forEach(new Block<Document>() {
@@ -98,7 +98,7 @@ public class MiBand {
                     datafound=true;
                     obj.put("hospital_name", document.get("hospital_name"));
                     obj.put("ambulance_id", document.get("ambulance_id"));
-                    obj.put("p_name", document.get("p_name"));
+                    obj.put("p_id", document.get("p_id"));
                     obj.put("heartrate",document.get("heartrate"));
                 }
             });
