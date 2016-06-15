@@ -64,7 +64,7 @@ public class Patient {
             {
                 p_name=p_id;
             }
-            collection.updateOne(new org.bson.Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new org.bson.Document("$set", new org.bson.Document("is_enabled","No")));
+            collection.updateMany(new org.bson.Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new org.bson.Document("$set", new org.bson.Document("is_enabled","No")));
 
 
             org.bson.Document doc1 = new org.bson.Document("hospital_name", hospital_name)
