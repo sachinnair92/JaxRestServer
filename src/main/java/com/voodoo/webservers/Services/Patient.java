@@ -37,19 +37,26 @@ public class Patient {
         return 10000 + r.nextInt(20000);
     }
 
+
+
+
     @GET
     @Path("/add_new_patient")
     @Produces("application/json")
     public String add_new_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
         obj = new JSONObject();
         try {
+
+
             String p_id="Patient_"+String.valueOf(gen());
-            if(p_name==null)
+            if(p_name.equals("null"))
             {
                 p_name=p_id;
             }
+            collection.updateOne(new org.bson.Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new org.bson.Document("$set", new org.bson.Document("is_enabled","No")));
 
-            Document doc = new Document("hospital_name", hospital_name)
+
+            org.bson.Document doc1 = new org.bson.Document("hospital_name", hospital_name)
                     .append("ambulance_id", ambulance_id)
                     .append("p_name", p_name)
                     .append("p_id", p_id)
@@ -60,17 +67,21 @@ public class Patient {
                     .append("police_case", police_case)
                     .append("is_enabled", is_enabled);
 
-            collection.insertOne(doc);
-            obj.put("p_id", "p_id");
+            collection.insertOne(doc1);
+            obj.put("p_id", p_id);
             obj.put("message", "true");
             return String.valueOf(obj);
+
         }
         catch(Exception e)
         {
-            obj.put("message", "false");
-            return String.valueOf(obj);
+            e.printStackTrace();
         }
+
+        return "null";
     }
+
+
 
     @GET
     @Path("/update_patient")
@@ -80,7 +91,8 @@ public class Patient {
         obj = new JSONObject();
         try {
 
-            UpdateResult ur = collection.updateOne(new Document("p_id", p_id).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new Document("$set", new Document("hospital_name", hospital_name).append("ambulance_id", ambulance_id).append("p_name",p_name).append("gender",gender).append("blood_grp",blood_grp).append("condition",condition).append("problem",problem).append("police_case",police_case).append("is_enabled",is_enabled)));
+
+            UpdateResult ur = collection.updateOne(new org.bson.Document("p_id", p_id).append("hospital_name", hospital_name).append("ambulance_id",ambulance_id), new org.bson.Document("$set", new org.bson.Document("hospital_name", hospital_name).append("ambulance_id", ambulance_id).append("p_name",p_name).append("gender",gender).append("blood_grp",blood_grp).append("condition",condition).append("problem",problem).append("police_case",police_case).append("is_enabled",is_enabled)));
 
 
             if (ur.getModifiedCount() != 0) {
@@ -93,10 +105,15 @@ public class Patient {
         }
         catch(Exception e)
         {
-            obj.put("message", "false");
-            return String.valueOf(obj);
+            e.printStackTrace();
         }
+
+
+        return "null";
     }
+
+
+
 
     @GET
     @Path("/get_patient_details")
@@ -106,24 +123,35 @@ public class Patient {
         obj = new JSONObject();
         try {
 
-            FindIterable<Document> iterable = collection.find(new Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_id",p_id));
+            FindIterable<org.bson.Document> iterable = collection.find(new org.bson.Document("hospital_name", hospital_name).append("ambulance_id",ambulance_id).append("p_id",p_id));
 
-            obj = new JSONObject();
+
             patientfound = false;
-            iterable.forEach(new Block<Document>() {
+            iterable.forEach(new Block<org.bson.Document>() {
                 @Override
-                public void apply(final Document document) {
+                public void apply(final org.bson.Document document) {
                     patientfound = true;
+
                     obj.put("hospital_name", document.get("hospital_name"));
+
                     obj.put("ambulance_id", document.get("ambulance_id"));
+
                     obj.put("p_name", document.get("p_name"));
+
                     obj.put("p_id", document.get("p_id"));
+
                     obj.put("gender", document.get("gender"));
+
                     obj.put("blood_grp", document.get("blood_grp"));
+
                     obj.put("condition", document.get("condition"));
+
                     obj.put("problem", document.get("problem"));
+
                     obj.put("police_case", document.get("police_case"));
+
                     obj.put("is_enabled", document.get("is_enabled"));
+
                 }
 
             });
@@ -139,9 +167,12 @@ public class Patient {
         }
         catch(Exception e)
         {
-            obj.put("message", "false");
-            return String.valueOf(obj);
+            e.printStackTrace();
         }
+
+
+
+        return "null";
     }
 
 
