@@ -91,19 +91,19 @@ public class Message {
 
                     datafound = true;
 
-                    jo.put("S_uname", "S_uname");
+                    jo.put("S_uname", String.valueOf(document.get("S_uname")));
 
-                    jo.put("S_time", "S_time");
+                    jo.put("S_time", String.valueOf(document.get("S_time")));
 
-                    jo.put("R_hosp_name", "R_hosp_name");
+                    jo.put("R_hosp_name", String.valueOf(document.get("R_hosp_name")));
 
-                    jo.put("R_amb_id", "R_amb_id");
+                    jo.put("R_amb_id", String.valueOf(document.get("R_amb_id")));
 
-                    jo.put("R_pid", "R_pid");
+                    jo.put("R_pid", String.valueOf(document.get("R_pid")));
 
-                    jo.put("msg", "msg");
+                    jo.put("msg", String.valueOf(document.get("msg")));
 
-                    jo.put("Is_amb", "Is_amb");
+                    jo.put("Is_amb", String.valueOf(document.get("Is_amb")));
 
                     ja.put(jo);
 
