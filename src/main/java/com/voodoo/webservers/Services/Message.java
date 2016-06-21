@@ -40,7 +40,7 @@ public class Message {
     @GET
     @Path("/set_Message")
     @Produces("application/json")
-    public String set_Message(@QueryParam("User_Name") String S_uname,@QueryParam("User_Name")  String S_time,@QueryParam("User_Name")  String R_hosp_name,@QueryParam("User_Name")  String R_amb_id,@QueryParam("User_Name")  String R_pid,@QueryParam("User_Name") String msg,@QueryParam("User_Name") String Is_amb) {
+    public String set_Message(@QueryParam("S_uname") String S_uname,@QueryParam("S_time")  String S_time,@QueryParam("R_hosp_name")  String R_hosp_name,@QueryParam("R_amb_id")  String R_amb_id,@QueryParam("R_pid")  String R_pid,@QueryParam("msg") String msg,@QueryParam("Is_amb") String Is_amb) {
         obj = new JSONObject();
         try {
 
