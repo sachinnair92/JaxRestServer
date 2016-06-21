@@ -79,7 +79,7 @@ public class Patient {
                     .append("is_enabled", is_enabled);
 
             collection.insertOne(doc1);
-            obj.put("p_id", p_id);
+            obj.put("P_id", p_id);
             obj.put("status", "true");
             return String.valueOf(obj);
 
