@@ -97,7 +97,7 @@ public class Patient {
     @GET
     @Path("/update_patient")
     @Produces("application/json")
-    public String update_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("p_name") String p_id,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
+    public String update_patient(@QueryParam("hospital_name") String hospital_name,@QueryParam("ambulance_id") String ambulance_id ,@QueryParam("p_name") String p_name,@QueryParam("p_id") String p_id,@QueryParam("gender") String gender,@QueryParam("blood_grp") String blood_grp,@QueryParam("condition")String condition,@QueryParam("problem")String problem,@QueryParam("police_case")String police_case,@QueryParam("is_enabled")String is_enabled) {
 
         obj = new JSONObject();
         try {
