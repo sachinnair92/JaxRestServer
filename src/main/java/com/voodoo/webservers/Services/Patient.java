@@ -80,7 +80,7 @@ public class Patient {
 
             collection.insertOne(doc1);
             obj.put("p_id", p_id);
-            obj.put("message", "true");
+            obj.put("status", "true");
             return String.valueOf(obj);
 
         }
@@ -107,11 +107,11 @@ public class Patient {
 
 
             if (ur.getModifiedCount() != 0) {
-                obj.put("message", "true");
+                obj.put("status", "true");
                 return String.valueOf(obj);
             }
 
-            obj.put("message", "false");
+            obj.put("status", "false");
             return String.valueOf(obj);
         }
         catch(Exception e)
@@ -169,11 +169,11 @@ public class Patient {
 
 
             if (patientfound) {
-                obj.put("message", "true");
+                obj.put("status", "true");
                 return String.valueOf(obj);
             }
 
-            obj.put("message", "false");
+            obj.put("status", "false");
             return String.valueOf(obj);
         }
         catch(Exception e)
